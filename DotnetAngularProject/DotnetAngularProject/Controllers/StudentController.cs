@@ -1,21 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetAngularProject.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    [Route("[controller]")] 
+    public class StudentController : Controller
     {
-        public List<string> Student = new List<string>()
-        {
-            "Dhanraj","Suraj","Raj"
-        };
-
         [HttpGet]
-        public List<string> GetStudent()
+        public string Get()
         {
-            return Student;
+            return "Hello Dhanraj";
         }
+
     }
 }
