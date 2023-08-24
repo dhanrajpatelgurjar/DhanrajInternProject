@@ -6,11 +6,22 @@ namespace DotnetAngularProject.Controllers
     [Route("[controller]")] 
     public class StudentController : Controller
     {
-        [HttpGet]
-        public string Get()
+        static List<string> student = new List<string>()
         {
-            return "Hello Dhanraj";
+            "Dhanraj", "Suraj", "Raj"
+        };
+
+        [HttpGet]
+        public List<string> Get()
+        {
+            return student;
         }
+        [HttpGet("{Id}")]
+        public string Get(int id)
+        {
+            return student.ElementAt(id);
+        }
+        
 
     }
 }

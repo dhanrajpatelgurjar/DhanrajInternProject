@@ -10,7 +10,6 @@ namespace DotnetAngularProject.Controllers
         {
           "raj", "dhanraj", "Adesh", "snadesh", "apdesh", "jivdesh", "videsh", "rajesh"
         };
-        private readonly string[] Dhanrajpatel = new[] { "Dhanraj" }; 
         private readonly ILogger<WeatherForecastController> _logger;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
