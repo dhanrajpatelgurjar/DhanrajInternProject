@@ -1,0 +1,29 @@
+<div class="container">
+<p>Add-Student </p>
+<!-- 
+<form #formModel class="form-fuild">
+    <input class="form-control mb-3" type="text" name="name" #ngModel>
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <input  type="checkbox" name="complete" #ngModel>
+    <input class="form-control mb-3" type="date" name="date" #ngModel>
+    <button class="form-control btn btn-primary" type="submit">Create</button>
+
+</form> -->
+<div class="card">
+<form [formGroup]="AddStudent"  (ngSubmit)="postStudents()" >
+    <div class="mb-3">
+      <label for="form-control" class="form-label">Name</label>
+      <input type="name" class="form-control" id="Name"  formControlName="Name">
+    </div>
+    <div class="mb-3">
+      <label for="date" class="form-label">Date</label>
+      <input type="date" class="form-control" id="date"  formControlName="Date">
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="complete"  formControlName="Complete">
+      <label class="form-check-label" for="complete">Complete !</label>
+    </div>
+    <button type="submit" class="form-control btn btn-primary" >Create</button>
+  </form>
+</div>
+</div>
