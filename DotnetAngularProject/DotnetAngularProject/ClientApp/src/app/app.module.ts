@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import {Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -11,7 +11,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { StudentComponent } from './student/student/student.component';
 import {AddStudentComponent} from './student/add-student/add-student.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,13 +20,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     CounterComponent,
     FetchDataComponent,
     StudentComponent,
-    AddStudentComponent
+    AddStudentComponent,
+    
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+
     
     RouterModule.forRoot([
       { path: '', component: HomeComponent},
