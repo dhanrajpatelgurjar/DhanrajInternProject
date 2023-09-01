@@ -12,6 +12,8 @@ import { StudentComponent } from './student/student/student.component';
 import {AddStudentComponent} from './student/add-student/add-student.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {EditstudentComponent} from './student/editstudent/editstudent.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FetchDataComponent,
     StudentComponent,
     AddStudentComponent,
+    EditstudentComponent,
     
   ],
   imports: [
@@ -37,6 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'Student', component: StudentComponent },
       { path: 'Student/AddStudent', component: AddStudentComponent },
+      { path: 'Student/Editstudent', component: EditstudentComponent },
     //   { 
     //     path: 'Student', component: StudentComponent ,
     //     children : [{path: 'AddStudent', component: AddStudentComponent }]

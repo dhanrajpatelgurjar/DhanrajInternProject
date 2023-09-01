@@ -8,33 +8,34 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export default class ServivesService {
-  remove(id: any) {
-    throw new Error('Method not implemented.');
-  }
-  apiUrl = 'https://localhost:7192';
+  student: any=[];
+  apiUrl = 'https://localhost:44363/Student';
   constructor(private http : HttpClient) { }
   
   
-  getStudents() {
-    return this.http.get(`${this.apiUrl}/Student/GetStudents`);
+  getStudents()
+  {
+    return this.http.get(`${this.apiUrl}/GetStudents`);
   }
   
   addStudent(body:any) {
-    return this.http.post(`${this.apiUrl}/Student/CreateStudents` , body);
+    return this.http.post(`${this.apiUrl}/CreateStudent` , body);
   }
 
   deleteStudent(Id:any)
   {
-    return this.http.delete(`${this.apiUrl}/Student/DeleteStudents/`+Id);
+    return this.http.delete(`${this.apiUrl}/DeleteStudents/`+Id);
   }
-  editStudent(id :any,data:any)
+
+  editstudent(std:any)
   {
-    return this.http.put(`${this.apiUrl}/Student/EditStudent/`+id, data);
+    return this.http.put(`${this.apiUrl}/`+ std.id, std);
   }
+
 
   GetStudentById(id :any)
   {
-    return this.http.get(`${this.apiUrl}/Student/GetStudentById/`+id);
+    return this.http.get(`${this.apiUrl}/`+id);
 
   }
 }

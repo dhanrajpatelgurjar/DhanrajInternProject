@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import ServivesService from 'src/app/servives.service';
 
@@ -9,39 +9,38 @@ import ServivesService from 'src/app/servives.service';
 })
 export class StudentComponent implements OnInit {
   studentList: any = [];
-  student:any;
+  addStudent: any;
 
-  constructor(private service: ServivesService,private router : Router) {
-  }
-  async ngOnInit(): Promise<void> {
-     this.getStudents();
+  constructor(private service: ServivesService,
+    private router: Router,
+  ) {
   }
 
-  async getStudents() {
-    await this.service.getStudents().subscribe(respose => {
+  ngOnInit() {
+    this.getStudents();
+  }
+
+  getStudents() {
+    this.service.getStudents().subscribe(respose => {
       this.studentList = respose;
     });
   }
 
-  async GetStudentById(student :any) {
-    await this.service.GetStudentById(student.id).subscribe(async respose => {
-      this.student = respose;
-      console.log(respose);
-      
-      this.router.navigate(['Student/AddStudent',student]);
-    });
+  redirectAddStudent() {
+    this.router.navigate([`Student/AddStudent`]);
   }
 
+  onEdit(std:any): void {
+    this.service.student = std;
+    this.router.navigate([`Student/Editstudent`]);
+}
 
-  async Remove(id : any)
-  {if (confirm('Are you sure?'+ id)) {
-    await this.service.deleteStudent(id).subscribe(async data => {
-      alert("Delete Sucessfull "+id);
-      this.getStudents();
-    })
+  Remove(data: any) {
+    if (confirm('Are you sure ? ' + data.name)) {
+      this.service.deleteStudent(data.id).subscribe(async (respose) => {
+        alert("Delete Sucessfull " + data.name);
+        this.getStudents();
+      })
+    }
   }
-  }
-
-
-  
 }

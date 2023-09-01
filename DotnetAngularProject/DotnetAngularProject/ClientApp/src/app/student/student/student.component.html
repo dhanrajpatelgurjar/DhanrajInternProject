@@ -1,25 +1,26 @@
-<div class="content">
-<button class="btn btn-info"><a style="text-decoration: none; color: azure;" routerLink="AddStudent">Create a Student</a> </button>
-<table class='table table-striped' aria-labelledby="tableLabel">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Complete</th>
-      <th>Date</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let Student of studentList">
-      <td>{{ Student.name }}</td>
-      <td><input type="checkbox"  [checked]="Student.complete" disabled> </td>
-      <td>{{ Student.date | date: "dd-MM-yyyy" }}</td>
-      <td>
-        <i class="fa fa-pencil m-1" (click)="GetStudentById(Student.id)"></i>
-          <i class="fa fa-solid fa-trash m-1" (click)="Remove(Student.id)"></i>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <button class="btn mb-2 btn-info" (click)="redirectAddStudent()">Create a Student</button>
+  <div class="content">
+    <table class='table table-striped' aria-labelledby="tableLabel">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Complete</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let Student of studentList">
+          <td>{{ Student.name }}</td>
+          <td><input type="checkbox" [checked]="Student.complete" disabled> </td>
+          <td>{{ Student.date | date: "dd-MM-yyyy" }}</td>
+          <td>
+            <i class="fa fa-pencil m-1" (click)="onEdit(Student)"></i>
+            <i class="fa fa-solid fa-trash m-1" (click)="Remove(Student)"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-

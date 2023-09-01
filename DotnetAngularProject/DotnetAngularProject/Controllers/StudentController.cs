@@ -6,10 +6,10 @@ namespace DotnetAngularProject.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+
     public class StudentController : Controller
     {
         private readonly StudentDetailContext _context;
-
         public StudentController(StudentDetailContext context)
         {
             _context = context;
@@ -18,49 +18,72 @@ namespace DotnetAngularProject.Controllers
         [HttpGet("GetStudents")]
         public async Task<ActionResult<List<StudentDetail>>> Get()
         {
-            var data = await _context.StudentDetails.ToListAsync();
+            var data = await _context.StudentDetails.OrderByDescending(x=>x.Id).ToListAsync();
             return Ok(data);
         }
-
-/*
-        [HttpPost("CreateStudent")]
-        public async Task<ActionResult<StudentDetail>> CreateStudent(StudentDetail student)
-        {
-            context.StudentDetails.Add(student);
-            await context.SaveChangesAsync();
-            return CreatedAtAction(nameof(Get), new { id = student.Id }, student);
-        }*/
-
 
         [HttpPost("CreateStudent")]
         public async Task<ActionResult<StudentDetail>> Post(StudentDetail student)
         {
                 _context.StudentDetails.Add(student);
                 await _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(Get), new { id = student.Id }, student);
-            
+
+                return CreatedAtAction(nameof(Get), new { id = student.Id }, student);            
         }
 
-
-        /*static List<string> student = new List<string>()
+        [HttpGet("GetStudent/{id}")]
+        public async Task<ActionResult<StudentDetail>> GetStudent(int id)
         {
-            "Dhanraj", "Suraj", "Raj","Patel"
-        };
+            var student = await _context.StudentDetails.FindAsync(id);
+            if(student == null)
+            {
+                return NotFound();
+            }
 
-        [HttpGet]
-        public List<string> Get()
-        {
             return student;
         }
-
-
-        [HttpGet("{Id}")]
-        public string Get(int id)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Editstudent(int id, StudentDetail student)
         {
-            return student.ElementAt(id);
-        }*/
+            _context.Entry(student).State = EntityState.Modified;
 
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
 
+            catch (DbUpdateConcurrencyException)
+            {
+                if(!StudentAvaiable(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
+            return Ok(student);
+
+        }
+
+        private bool StudentAvaiable(int id)
+        {
+            return (_context.StudentDetails?.Any(x => x.Id == id)).GetValueOrDefault();
+        }
+
+        [HttpDelete("DeleteStudents/{id}")]
+        public async Task<ActionResult<StudentDetail>> Deletestudent(int id)
+        {
+            var student = _context.StudentDetails.Find(id);
+            if(student == null)
+            {
+                return NotFound();
+            }
+            _context.StudentDetails.Remove(student);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
